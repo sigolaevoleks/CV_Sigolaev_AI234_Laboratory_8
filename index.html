@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Гроші, що думають</title>
+  <meta name="description" content="Сторітелінгова презентація: роль Data Science та Data Mining у фінансах, 1952–2025. Лабораторна робота №8, варіант 20.">
+  <meta name="theme-color" content="#04060c">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2304060c'/%3E%3Cpolyline points='10,44 24,30 34,38 54,16' fill='none' stroke='%232cf5a6' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="bg" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="grid"></div></div>
+  <div class="progress" id="progress"></div>
+
+  <main class="deck" id="deck">
+
+    <!-- 1 · Титул -->
+    <section class="slide title-slide" data-ch="3" data-title="Титул">
+      <div class="inner">
+        <div class="chip rv">Лабораторна робота №8 · Варіант 20</div>
+        <h1 class="rv d1">Гроші,<br>що думають</h1>
+        <p class="sub rv d2"><b>Роль Data Science та Data Mining у фінансах</b> · 1952 → 2025</p>
+        <div class="chips">
+          <div class="glass rv d3"><div class="v mono">1952</div><div class="k">перша формула ризику</div></div>
+          <div class="glass rv d4"><div class="v mono">~50%</div><div class="k">торгів на біржах США — алгоритми</div></div>
+          <div class="glass rv d5"><div class="v mono">$40 млрд</div><div class="k">шахрайства зупинив ШІ Visa за рік</div></div>
+        </div>
+        <p class="hint-keys rv d5"><kbd>←</kbd><kbd>→</kbd> навігація · <kbd>O</kbd> огляд · <kbd>F</kbd> на весь екран</p>
+      </div>
+      <div class="author">Виконав: студент групи AI-234<br>Сіголаєв Олександр Владиславович</div>
+    </section>
+
+    <!-- 2 · Стрічка часу -->
+    <section class="slide" data-ch="3" data-title="Карта історії">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">Карта історії</div>
+          <h2 class="title rv d1">73 роки: від формули на папері до <em>ШІ в кожному платежі</em></h2>
+        </div>
+        <div class="tl rv d2" id="timeline"></div>
+      </div>
+      <div class="src">Натисніть на подію, щоб перейти до її слайда</div>
+    </section>
+
+    <!-- 3 · Марковіц -->
+    <section class="slide" data-ch="0" data-title="1952 · Марковіц">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">I · Поява · 1952</div>
+          <h2 class="title rv d1">Ризик <em>можна порахувати</em></h2>
+        </div>
+        <div class="body cols-5-7">
+          <div class="stack">
+            <div class="stat rv d2"><div class="num xl mono">1952</div><div class="lbl">Гаррі Марковіц, «Portfolio Selection»: портфель = дохідність + ризик (дисперсія)</div></div>
+            <div class="glass rv d3">
+              <div class="mini-tl">
+                <div class="row"><div class="y">1990</div><div class="t"><b>Нобелівська премія</b> з економіки</div></div>
+                <div class="row"><div class="y">→</div><div class="t">Перша математична модель, що замінила «чуття» інвестора</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="glass fill rv d2">
+            <h3>1 500 випадкових портфелів із 4 активів</h3>
+            <div class="chart"><canvas id="c-markowitz"></canvas></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Ілюстрація розрахована в браузері. Верхня межа хмари — «ефективний фронт» Марковіца. Джерело: nobelprize.org</div>
+    </section>
+
+    <!-- 4 · Кредитний скоринг -->
+    <section class="slide" data-ch="0" data-title="Кредитний скоринг">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">I · Поява · 1956 → 1989</div>
+          <h2 class="title rv d1">Кредит отримує не людина, <em>а число</em></h2>
+        </div>
+        <div class="body cols-3">
+          <div class="glass fill rv d2">
+            <h3>Шкала FICO</h3>
+            <div class="chart" id="gauge"></div>
+          </div>
+          <div class="glass fill rv d3">
+            <h3>З чого складається бал</h3>
+            <div class="chart"><canvas id="c-fico"></canvas></div>
+          </div>
+          <div class="glass rv d4">
+            <h3>Хронологія</h3>
+            <div class="mini-tl">
+              <div class="row"><div class="y">1956</div><div class="t"><b>Fair Isaac</b>: інженер і математик заснували компанію</div></div>
+              <div class="row"><div class="y">1989</div><div class="t">Перший <b>універсальний бал FICO</b> разом з Equifax</div></div>
+              <div class="row"><div class="y">2003</div><div class="t">Компанія стає <b>Fair Isaac Corporation</b></div></div>
+              <div class="row"><div class="y">2024</div><div class="t">ЄС: скоринг — <b>ШІ високого ризику</b></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Джерело: myFICO — History of the FICO Score; What's in my FICO Scores</div>
+    </section>
+
+    <!-- 5 · Блек–Шоулз -->
+    <section class="slide" data-ch="0" data-title="1973 · Блек–Шоулз">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">I · Поява · 1973</div>
+          <h2 class="title rv d1">Формула, що <em>створила ринок</em></h2>
+        </div>
+        <div class="body cols-5-7">
+          <div class="stack">
+            <div class="glass formula rv d2">C = S·<span class="acc">N(d₁)</span> − K·e<sup>−rT</sup>·<span class="acc">N(d₂)</span></div>
+            <div class="stat rv d3"><div class="num mono" data-count="911">911</div><div class="lbl">контрактів у перший день біржі CBOE (26.04.1973, 16 акцій)</div></div>
+            <div class="stat rv d4"><div class="num sm mono">×13 800</div><div class="lbl">зростання річного обсягу за 52 роки</div></div>
+          </div>
+          <div class="glass fill rv d2">
+            <h3>Опціонні контракти на рік, млрд (лог. шкала)</h3>
+            <div class="chart"><canvas id="c-options"></canvas></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">1997 — Нобелівська премія Шоулзу та Мертону. Джерело: OCC (Options Clearing Corporation), 1973–2025</div>
+    </section>
+
+    <!-- 6 · Medallion -->
+    <section class="slide" data-ch="1" data-title="Кванти">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">II · Розвиток · 1988</div>
+          <h2 class="title rv d1">Математики <em>обходять</em> Волл-стріт</h2>
+          <p class="lead rv d2">Renaissance Technologies математика Джима Саймонса: торгівля лише на основі моделей і даних</p>
+        </div>
+        <div class="body cols-7-5">
+          <div class="glass fill rv d2">
+            <h3>Середня річна дохідність 1988–2018, %</h3>
+            <div class="chart"><canvas id="c-medallion"></canvas></div>
+          </div>
+          <div class="stack" style="justify-content:center">
+            <div class="stat rv d3"><div class="num xl mono" data-count="66.1" data-dec="1" data-suffix="%">66,1%</div><div class="lbl">середня дохідність фонду Medallion до комісій</div></div>
+            <div class="stat rv d4"><div class="num sm mono">≈ ×6,6</div><div class="lbl">порівняно з індексом S&amp;P 500</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Джерело: G. Zuckerman, «The Man Who Solved the Market» (2019). Фонд приватний; дані — річні звіти для інвесторів</div>
+    </section>
+
+    <!-- 7 · Антифрод -->
+    <section class="slide" data-ch="1" data-title="Нейромережі проти шахраїв">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">II · Розвиток · 1992 →</div>
+          <h2 class="title rv d1">Нейромережа <em>на сторожі</em> картки</h2>
+          <p class="lead rv d2">1992: Falcon від HNC — одна з перших нейромереж, що оцінює кожну транзакцію в реальному часі</p>
+        </div>
+        <div class="body cols-7-5">
+          <div class="glass fill rv d2">
+            <h3>Втрати від шахрайства, центів з кожних $100 обороту (світ)</h3>
+            <div class="chart"><canvas id="c-fraud"></canvas></div>
+          </div>
+          <div class="stack" style="justify-content:center">
+            <div class="stat rv d3"><div class="num mono">6,58¢</div><div class="lbl">з кожних $100 у 2023 — менше, ніж на піку 2016 (7,2¢)</div></div>
+            <div class="stat rv d4"><div class="num sm mono red">$33,83 млрд</div><div class="lbl">світові втрати у 2023 році</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Джерело: The Nilson Report (2010–2023); за деякі роки дані недоступні</div>
+    </section>
+
+    <!-- 8 · LTCM -->
+    <section class="slide" data-ch="1" data-title="1998 · LTCM">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">II · Розвиток · 1998</div>
+          <h2 class="title rv d1">Коли модель <em>зустріла реальність</em></h2>
+          <p class="lead rv d2">Long-Term Capital Management: серед партнерів — нобелівські лауреати Мертон і Шоулз</p>
+        </div>
+        <div class="body cols-2">
+          <div class="glass rv d2">
+            <h3>Кредитне плече ≈ 25 : 1</h3>
+            <div class="lev-grid" id="lev"></div>
+            <div class="legend"><span style="--c:var(--acc)">$4,7 млрд власного капіталу</span><span style="--c:rgba(255,255,255,.3)">≈$125 млрд активів</span></div>
+          </div>
+          <div class="stack" style="justify-content:center">
+            <div class="stat rv d3"><div class="num red mono">−$4,6 млрд</div><div class="lbl">втрачено менш ніж за 4 місяці (криза в Азії та Росії)</div></div>
+            <div class="stat rv d4"><div class="num sm mono">$3,6 млрд</div><div class="lbl">порятунок від 14 банків під наглядом ФРБ Нью-Йорка</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Перший великий урок: модель не знає того, чого не було в даних. Джерело: огляд справи LTCM, ФРБ Нью-Йорка</div>
+    </section>
+
+    <!-- 9 · HFT -->
+    <section class="slide" data-ch="2" data-title="Алгоритмічна торгівля">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">III · Становлення · 2005 → 2013</div>
+          <h2 class="title rv d1">Машини торгують <em>швидше за людей</em></h2>
+        </div>
+        <div class="body cols-7-5">
+          <div class="glass fill rv d2">
+            <h3>Частка високочастотної торгівлі (HFT) в обсязі торгів акціями США, %</h3>
+            <div class="chart"><canvas id="c-hft"></canvas></div>
+          </div>
+          <div class="stack" style="justify-content:center">
+            <div class="stat rv d3"><div class="num xl mono">~50%</div><div class="lbl">торгів на біржах США — HFT-алгоритми (2012–2013)</div></div>
+            <div class="stat rv d4"><div class="num sm mono">40–78%</div><div class="lbl">розкид оцінок на піку 2009 р.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Оцінки Rosenblatt Securities, TABB Group, Aite Group; методики різняться. Риска — діапазон оцінок</div>
+    </section>
+
+    <!-- 10 · 2008 -->
+    <section class="slide" data-ch="2" data-title="2008 · Копула">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">III · Становлення · 2000 → 2011</div>
+          <h2 class="title rv d1">Одна формула — <em>трильйонний ринок</em></h2>
+          <p class="lead rv d2">2000: гаусова копула Девіда Лі оцінює спільний дефолт кредитів одним числом кореляції — і стає стандартом для оцінки CDO</p>
+        </div>
+        <div class="body cols-7-5">
+          <div class="glass fill rv d2">
+            <h3>Глобальна емісія CDO, млрд $</h3>
+            <div class="chart"><canvas id="c-cdo"></canvas></div>
+          </div>
+          <div class="glass rv d3">
+            <h3>Наслідки</h3>
+            <div class="mini-tl">
+              <div class="row"><div class="y">2006</div><div class="t">Рекорд емісії — <b>$488,6 млрд</b>, майже ×2 за рік</div></div>
+              <div class="row"><div class="y">2007</div><div class="t">Обвал іпотеки subprime, падіння емісії</div></div>
+              <div class="row"><div class="y">2008</div><div class="t"><b>Світова фінансова криза</b></div></div>
+              <div class="row"><div class="y">2011</div><div class="t">ФРС, <b>SR 11-7</b>: правила управління модельним ризиком</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Джерела: SIFMA Research Quarterly (2006 Q4, 2007 Q3); Federal Reserve SR 11-7</div>
+    </section>
+
+    <!-- 11 · Flash Crash -->
+    <section class="slide" data-ch="2" data-title="2010 · Flash Crash">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">III · Становлення · 06.05.2010</div>
+          <h2 class="title rv d1">36 хвилин, що <em>стерли $1 трлн</em></h2>
+        </div>
+        <div class="body cols-7-5">
+          <div class="glass fill rv d2">
+            <h3>Індекс Dow Jones протягом дня 6 травня 2010</h3>
+            <div class="chart"><canvas id="c-flash"></canvas></div>
+          </div>
+          <div class="stack" style="justify-content:center">
+            <div class="stat rv d3"><div class="num red mono">−998,5</div><div class="lbl">пункту — найбільше падіння за день на той момент</div></div>
+            <div class="stat rv d4"><div class="num sm mono">≈$1 трлн</div><div class="lbl">ринкової вартості зникло й повернулося за хвилини</div></div>
+            <div class="stat rv d5"><div class="num sm mono">−347,8</div><div class="lbl">підсумок дня (−3,2%)</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Траєкторія схематична; відкриття, мінімум (9 869,62) і закриття (10 520,32) — фактичні. Джерело: звіт SEC/CFTC, 30.09.2010</div>
+    </section>
+
+    <!-- 12 · Knight -->
+    <section class="slide" data-ch="2" data-title="2012 · Knight Capital">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">III · Становлення · 01.08.2012</div>
+          <h2 class="title rv d1">45 хвилин. <em>$440 мільйонів.</em></h2>
+          <p class="lead rv d2">Knight Capital розгорнув оновлення з помилкою: старий код почав купувати дорожче й продавати дешевше</p>
+        </div>
+        <div class="body cols-2">
+          <div class="ring rv d2" id="ring">
+            <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="12"/><circle id="ring-arc" cx="100" cy="100" r="88" fill="none" stroke="var(--red)" stroke-width="12" stroke-linecap="round" stroke-dasharray="553" stroke-dashoffset="553" style="filter:drop-shadow(0 0 6px var(--red))"/></svg>
+            <div class="center"><div class="t" id="ring-t">00:00</div><div class="m" id="ring-m">−$0</div><div class="k">хвилини · збитки</div></div>
+          </div>
+          <div class="stack" style="justify-content:center">
+            <div class="stat rv d3"><div class="num red mono">$163 000</div><div class="lbl">втрат щосекунди в середньому</div></div>
+            <div class="stat rv d4"><div class="num sm mono">$400 млн</div><div class="lbl">екстрене фінансування від інвесторів через 4 дні</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Джерело: Fortune (02.08.2012); Chicago Fed Letter №303. $440 млн / 2 700 с ≈ $163 000 за секунду</div>
+    </section>
+
+    <!-- 13 · Альтернативні дані -->
+    <section class="slide" data-ch="2" data-title="Альтернативні дані">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">III · Становлення · 2016 → 2020</div>
+          <h2 class="title rv d1">Дані <em>з усього</em>: супутники, геолокація, чеки</h2>
+        </div>
+        <div class="body cols-7-5">
+          <div class="glass fill rv d2">
+            <h3>Витрати інвестфондів на альтернативні дані, млн $</h3>
+            <div class="chart"><canvas id="c-alt"></canvas></div>
+          </div>
+          <div class="stack" style="justify-content:center">
+            <div class="stat rv d3"><div class="num xl mono">×7</div><div class="lbl">зростання витрат за 4 роки</div></div>
+            <div class="glass rv d4" id="alt-icons"></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Джерело: AlternativeData.org (через GARP, 2020). 2020 — прогноз</div>
+    </section>
+
+    <!-- 14 · Робо-радники і Erica -->
+    <section class="slide" data-ch="3" data-title="Робо-радники">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">IV · Сучасність · 2010 → 2025</div>
+          <h2 class="title rv d1">Банкір у <em>кишені</em></h2>
+        </div>
+        <div class="body cols-5-7">
+          <div class="stack">
+            <div class="stat rv d2"><div class="num mono">≈$2 трлн</div><div class="lbl">активів під керуванням робо-радників у 2025 році</div></div>
+            <div class="glass rv d3">
+              <div class="mini-tl">
+                <div class="row"><div class="y">1996</div><div class="t">Financial Engines — прообраз</div></div>
+                <div class="row"><div class="y">2010</div><div class="t"><b>Betterment</b> — перший робо-радник</div></div>
+                <div class="row"><div class="y">2011</div><div class="t"><b>Wealthfront</b></div></div>
+                <div class="row"><div class="y">2018</div><div class="t"><b>Erica</b> — ШІ-асистент Bank of America</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="glass fill rv d2">
+            <h3>Erica: накопичено взаємодій з клієнтами, млрд</h3>
+            <div class="chart"><canvas id="c-erica"></canvas></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Джерела: Statista Market Insights (прогноз 2025: $2,06 трлн); Bank of America (2024, 2025); Kitces</div>
+    </section>
+
+    <!-- 15 · Visa -->
+    <section class="slide" data-ch="3" data-title="Visa · $40 млрд">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">IV · Сучасність · 2022 → 2023</div>
+          <h2 class="title rv d1">ШІ бачить шахрая <em>за мілісекунди</em></h2>
+        </div>
+        <div class="body cols-7-5">
+          <div class="glass fill rv d2">
+            <h3>Кожна транзакція проходить через модель ризику</h3>
+            <div class="stream" id="stream"><div class="shield"></div><div class="shield-lbl">ML-ФІЛЬТР</div></div>
+            <div class="legend"><span style="--c:rgba(255,255,255,.4)">легальні платежі</span><span style="--c:var(--red)">підозрілі — зупинено</span></div>
+          </div>
+          <div class="stack" style="justify-content:center">
+            <div class="stat rv d3"><div class="num mono">$40 млрд</div><div class="lbl">шахрайства зупинила Visa за допомогою ШІ (жовт. 2022 — вер. 2023)</div></div>
+            <div class="stat rv d4"><div class="num sm mono">80 млн</div><div class="lbl">заблокованих шахрайських транзакцій · майже ×2 до попереднього року</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Анімація ілюстративна. Джерело: CNBC (07.2024), PYMNTS</div>
+    </section>
+
+    <!-- 16 · COiN -->
+    <section class="slide" data-ch="3" data-title="JPMorgan COiN">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">IV · Сучасність · 2017</div>
+          <h2 class="title rv d1">360 000 годин юристів → <em>секунди</em></h2>
+          <p class="lead rv d2">JPMorgan COiN (Contract Intelligence): машинне навчання читає кредитні договори</p>
+        </div>
+        <div class="glass vs rv d3" style="flex:1">
+          <div class="side">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12M6 22h12M7 2c0 5 10 7 10 10S7 17 7 22M17 2c0 5-10 7-10 10s10 5 10 10"/></svg>
+            <div class="stat"><div class="num mono" data-count="360000" data-sep="1">360 000</div><div class="lbl">годин ручної роботи на рік</div></div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="side">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>
+            <div class="stat"><div class="num mono">секунди</div><div class="lbl">на той самий обсяг документів</div></div>
+          </div>
+        </div>
+        <p class="lead rv d4" style="margin-top:28px">360 000 годин ≈ <b class="acc mono">41 рік</b> безперервної роботи однієї людини</p>
+      </div>
+      <div class="src">Джерело: Bloomberg (28.02.2017). 360 000 / 8 760 год на рік ≈ 41</div>
+    </section>
+
+    <!-- 17 · GenAI -->
+    <section class="slide" data-ch="3" data-title="Генеративний ШІ">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">IV · Сучасність · 2023 → 2025</div>
+          <h2 class="title rv d1">Фінанси <em>вчать мову</em></h2>
+        </div>
+        <div class="body cols-3">
+          <div class="glass fill rv d2">
+            <h3>BloombergGPT · 50 млрд параметрів</h3>
+            <div class="chart"><canvas id="c-bgpt"></canvas></div>
+          </div>
+          <div class="glass fill rv d3">
+            <h3>Фінкомпанії, що вже використовують GenAI, %</h3>
+            <div class="chart"><canvas id="c-genai"></canvas></div>
+          </div>
+          <div class="stack rv d4" style="justify-content:center">
+            <div class="stat"><div class="num sm mono">$200–340</div><div class="lbl">млрд $ на рік — потенційна цінність GenAI для банків (McKinsey)</div></div>
+            <div class="stat"><div class="num sm mono">9–15%</div><div class="lbl">операційного прибутку галузі</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Джерела: Wu et al., arXiv:2303.17564 (2023); NVIDIA State of AI in Financial Services 2024/2025; McKinsey (2023)</div>
+    </section>
+
+    <!-- 18 · Мапа застосувань -->
+    <section class="slide" data-ch="3" data-title="Де живе Data Science">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">IV · Сучасність · 2025</div>
+          <h2 class="title rv d1">Де живе <em>Data Science</em> сьогодні</h2>
+        </div>
+        <div class="orbit rv d2" id="orbit"></div>
+      </div>
+      <div class="src">Рік — перша поява напряму в історії цієї презентації</div>
+    </section>
+
+    <!-- 19 · Що зникає -->
+    <section class="slide" data-ch="4" data-title="Що зникає">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">V · Що зникає · 2000 → 2017</div>
+          <h2 class="title rv d1">Зникає не Data Science — <em>зникає ручна праця</em></h2>
+        </div>
+        <div class="body cols-7-5">
+          <div class="glass rv d2">
+            <h3>Відділ торгівлі акціями Goldman Sachs, Нью-Йорк</h3>
+            <div class="people" id="people"></div>
+            <div class="legend"><span style="--c:rgba(255,255,255,.4)">600 трейдерів у 2000</span><span style="--c:var(--red)">2 трейдери у 2017</span></div>
+            <div class="people eng" id="engineers" style="margin-top:18px"></div>
+            <div class="legend"><span style="--c:var(--cyan)">+200 інженерів обслуговують алгоритми</span></div>
+          </div>
+          <div class="stack" style="justify-content:center">
+            <div class="stat rv d3"><div class="num xl mono">600→2</div><div class="lbl">трейдери за 17 років</div></div>
+            <div class="stat rv d4"><div class="num sm mono">4 = 1</div><div class="lbl">чотирьох валютних трейдерів замінює один інженер</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Джерело: MIT Technology Review (07.02.2017), виступ Марті Чавеса (Goldman Sachs)</div>
+    </section>
+
+    <!-- 20 · Ризики і регулювання -->
+    <section class="slide" data-ch="4" data-title="Ризики і регулювання">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">V · Що далі · ризики</div>
+          <h2 class="title rv d1">Ціна помилки — <em>і нові правила</em></h2>
+        </div>
+        <div class="body cols-7-5">
+          <div class="glass fill rv d2">
+            <h3>Найгучніші збої моделей і алгоритмів, млрд $ (лог. шкала)</h3>
+            <div class="chart"><canvas id="c-fail"></canvas></div>
+          </div>
+          <div class="glass rv d3">
+            <h3>Регулювання</h3>
+            <div class="mini-tl">
+              <div class="row"><div class="y">2011</div><div class="t">ФРС <b>SR 11-7</b>: кожна модель — перевірка і документація</div></div>
+              <div class="row"><div class="y">2024</div><div class="t"><b>EU AI Act</b> (Регламент 2024/1689): кредитний скоринг — ШІ <b>високого ризику</b></div></div>
+              <div class="row"><div class="y">✓</div><div class="t">Виявлення шахрайства — <b>виняток</b> з високого ризику</div></div>
+              <div class="row"><div class="y">→</div><div class="t">Вимога: пояснюваність, людський нагляд, якість даних</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="src">Flash Crash — тимчасово стерта ринкова вартість, не збитки. Джерела: SEC/CFTC; Fortune; EUR-Lex, Додаток III п. 5(b)</div>
+    </section>
+
+    <!-- 21 · Висновки -->
+    <section class="slide" data-ch="3" data-title="Висновок">
+      <div class="inner">
+        <div class="s-head">
+          <div class="chip rv">Висновок</div>
+          <h2 class="title rv d1">Від однієї формули — до <em>мозку фінансової системи</em></h2>
+        </div>
+        <div class="arc rv d2">
+          <div class="st" style="--c:var(--violet)"><div class="n">I · ПОЯВА</div><div class="h">Формули</div><div class="d">Марковіц, FICO, Блек–Шоулз</div></div>
+          <div class="st" style="--c:var(--cyan)"><div class="n">II · РОЗВИТОК</div><div class="h">Кванти</div><div class="d">Medallion, нейромережі, LTCM</div></div>
+          <div class="st" style="--c:var(--amber)"><div class="n">III · СТАНОВЛЕННЯ</div><div class="h">Алгоритми</div><div class="d">HFT, CDO, Flash Crash</div></div>
+          <div class="st" style="--c:var(--green)"><div class="n">IV · СУЧАСНІСТЬ</div><div class="h">ШІ</div><div class="d">антифрод, асистенти, LLM</div></div>
+          <div class="st" style="--c:var(--red)"><div class="n">V · ЗНИКАЄ</div><div class="h">Ручна праця</div><div class="d">трейдери, рутина, «чуття»</div></div>
+        </div>
+        <div class="body cols-3" style="margin-top:28px;flex:none">
+          <div class="glass rv d3"><div class="stat"><div class="num sm mono">~50%</div><div class="lbl">торгів у США виконують алгоритми</div></div></div>
+          <div class="glass rv d4"><div class="stat"><div class="num sm mono">$40 млрд</div><div class="lbl">шахрайства зупинено ШІ за рік</div></div></div>
+          <div class="glass rv d5"><div class="stat"><div class="num sm mono">$200–340</div><div class="lbl">млрд $ на рік — потенціал GenAI для банків</div></div></div>
+        </div>
+        <p class="closing rv d5">Data Science не зникає — він стає <em>невидимим</em>: у кожному платежі, кредиті й угоді.</p>
+      </div>
+      <div class="src">Дані роблять фінанси швидшими й точнішими, але кожна криза нагадує: модель не замінює відповідальності</div>
+    </section>
+
+    <!-- 22 · Джерела -->
+    <section class="slide" data-ch="1" data-title="Джерела">
+      <div class="inner">
+        <div class="s-head" style="margin-bottom:24px">
+          <div class="chip rv">Джерела</div>
+          <h2 class="title rv d1">Дані та посилання</h2>
+        </div>
+        <ol class="sources rv d2" id="sources"></ol>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="hud" aria-label="Навігація">
+    <button id="b-prev" aria-label="Попередній слайд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <span class="count" id="count">1 / 22</span>
+    <button id="b-next" aria-label="Наступний слайд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    <button id="b-over" aria-label="Огляд слайдів"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button>
+    <button id="b-full" aria-label="На весь екран"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  </nav>
+
+  <div class="ticker" aria-hidden="true"><div class="track" id="ticker"></div></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/deck.js"></script>
+</body>
+</html>
